@@ -1,0 +1,16 @@
+%h1 Choose which gradients to save
+/ - @gradients.each_with_index do |(name, gradient), idx|
+= simple_form_for(@gradients_form, url: gradients_path, class: "row") do |gradients_form|
+  - @gradients_form.gradient_forms.each do |gradient_form|
+    = gradients_form.simple_fields_for :gradients, gradient_form do |ff|
+      = ff.input :points, as: :hidden
+      .col-md-6.col-sm-6
+        .panel.panel-default
+          .panel-body{ style: gradient_form.gradient.to_css + "height:100px;" }
+          .panel-footer
+            .form-group
+              = ff.input :name
+              = ff.input :save, as: :boolean, label: content_tag(:strong, "Store this gradient").html_safe
+
+  .col-md-12.col-sm-12.text-right
+    = submit_tag "Save gradients", class: "btn btn-primary"
