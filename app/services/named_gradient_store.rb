@@ -15,7 +15,7 @@ class NamedGradientStore
       object.store
     end
     @gradients.get_or_new(id).tap do |object|
-      object.data = { name: name, gradient: gradient.serialize }
+      object.data = { name: name, points: gradient.serialize }
       object.content_type = "application/json"
       object.store
     end
