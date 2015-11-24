@@ -6,6 +6,8 @@ class GradientsController < ApplicationController
   def create
     @gradients_form = GradientsForm.new(gradients_params)
     if @gradients_form.valid?
+      store = NamedGradientStore.new(riak: $riak, style: "default")
+      StoreGradientsInForm.new(store, @gradients_form).call
       redirect_to gradients_path
     else
       render "new"
