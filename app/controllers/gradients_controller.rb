@@ -13,7 +13,7 @@ class GradientsController < ApplicationController
   end
 
   private def gradients_params
-    params.permit(gradients: [:name, :points]).require(:gradients)
+    params.require(:gradients_form).permit(gradient_forms: [:name, :points, :save]).require(:gradient_forms)
   end
 
 end

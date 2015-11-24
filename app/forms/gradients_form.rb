@@ -11,4 +11,8 @@ class GradientsForm
     @gradient_forms = gradients_params.map { |params| GradientForm.new(params) }
   end
 
+  def valid?
+    super && @gradient_forms.all?(&:valid?)
+  end
+
 end
