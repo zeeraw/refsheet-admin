@@ -9,7 +9,7 @@ class NamedGradientStore
     @styles = @riak.bucket(STYLES_BUCKET)
   end
 
-  def save(id, name:, gradient:)
+  def save(id:, name:, gradient:)
     @styles.get_or_new(@style) do |object|
       object.links << Riak::Link.new(GRADIENTS_BUCKET, @id, "includes")
       object.store
