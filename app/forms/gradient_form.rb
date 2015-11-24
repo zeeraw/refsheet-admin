@@ -5,7 +5,7 @@ class GradientForm
   include ActiveModel::Validations
   include ActiveModel::Conversion
 
-  attr_reader :id, :name, :points, :gradient
+  attr_reader :id, :name, :points, :gradient, :save
 
   def initialize(attrs={})
     @name, @points = attrs.values_at(*%w(name points))
@@ -19,7 +19,7 @@ class GradientForm
   end
 
   def save?
-    !!@save
+    @save
   end
 
   def attributes
