@@ -17,6 +17,8 @@ gem "rails_12factor"
 
 gem "gradient", "~> 0.4.0"
 
+gem "riak-client"
+
 group :development, :test do
   gem "byebug"
   gem "web-console", "~> 2.0"
