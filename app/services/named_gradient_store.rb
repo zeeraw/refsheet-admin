@@ -10,7 +10,7 @@ class NamedGradientStore
   end
 
   def save(id:, name:, points:)
-    @styles.get_or_new(@style) do |object|
+    @styles.get_or_new(@style).tap do |object|
       object.links << Riak::Link.new(GRADIENTS_BUCKET, @id, "includes")
       object.store
     end
