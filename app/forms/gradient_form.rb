@@ -9,7 +9,7 @@ class GradientForm
 
   def initialize(attrs={})
     @name, @points = attrs.values_at(*%w(name points))
-    @gradient = Gradient::Map.deserialize(JSON.parse(@points))
+    @gradient = Gradient::Map.deserialize(JSON.parse(@points)) if @points
     @id = SecureRandom.uuid
     @save = attrs.fetch("save", "0") == "1"
   end
