@@ -10,13 +10,10 @@ class NamedGradientStore
   end
 
   def save(id:, name:, points:)
-    @styles.get_or_new(@style).tap do |object|
-      object.links << Riak::Link.new(GRADIENTS_BUCKET, @id, "includes")
-      object.store
-    end
     @gradients.get_or_new(id).tap do |object|
       object.data = { name: name, points: points }
       object.content_type = "application/json"
+      object.indexes["style"] = style
       object.store
     end
   end
