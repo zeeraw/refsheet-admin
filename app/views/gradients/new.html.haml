@@ -1,16 +1,17 @@
 %h1 Choose which gradients to save
-= simple_form_for @gradients_form, url: gradients_path, class: "row" do |f|
-  - @gradients_form.gradient_forms.each_with_index do |gradient_form, idx|
-    - key = [:gradients_form, :gradient_form, idx]
-    = f.simple_fields_for "gradient_forms[]", gradient_form do |ff|
-      = ff.input :points, as: :hidden
-      .col-md-6.col-sm-6
-        .panel.panel-default
-          .panel-body{ style: gradient_form.gradient.to_css + "height:100px;" }
-          .panel-footer
-            .form-group
-              = ff.input :name, input_html: { id: (key + [:name]).join("_") }, label: false
-              = ff.input :save, as: :boolean, input_html: { id: (key + [:save]).join("_") }, label: content_tag(:strong, "Save gradient to database").html_safe
+.row
+  = simple_form_for @gradients_form, url: gradients_path do |f|
+    - @gradients_form.gradient_forms.each_with_index do |gradient_form, idx|
+      - key = [:gradients_form, :gradient_form, idx]
+      = f.simple_fields_for "gradient_forms[]", gradient_form do |ff|
+        = ff.input :points, as: :hidden
+        .col-md-6.col-sm-6
+          .panel.panel-default
+            .panel-body{ style: gradient_form.gradient.to_css + "height:100px;" }
+            .panel-footer
+              .form-group
+                = ff.input :name, input_html: { id: (key + [:name]).join("_") }, label: false
+                = ff.input :save, as: :boolean, input_html: { id: (key + [:save]).join("_") }, label: content_tag(:strong, "Save gradient to database").html_safe
 
-  .col-md-12.col-sm-12.text-right
-    = submit_tag "Save gradients", class: "btn btn-primary"
+    .col-md-12.col-sm-12.text-right
+      = submit_tag "Save gradients", class: "btn btn-primary"
