@@ -1,19 +1,19 @@
 class NamedGradientStore
 
-  GRADIENTS_BUCKET = "gradients".freeze
-  STYLES_BUCKET = "styles".freeze
-
   def initialize(riak:, style:)
     @riak, @style = riak, style
-    @gradients = @riak.bucket(GRADIENTS_BUCKET)
-    @styles = @riak.bucket(STYLES_BUCKET)
+    @gradients = @riak.bucket_type("default").bucket("gradients")
+    @gradient_index = @riak.bucket("index")
   end
 
   def save(id:, name:, points:)
+    Riak::Crdt::Set.new(@gradient_index, "gradients").tap do |set|
+      set.add(id)
+    end
+
     @gradients.get_or_new(id).tap do |object|
       object.data = { name: name, points: points }
       object.content_type = "application/json"
-      object.indexes["style"] = style
       object.store
     end
   end
