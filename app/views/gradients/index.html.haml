@@ -1,2 +1,10 @@
 %h1 Color Schemes
 = link_to "Import color schemes", new_grd_import_path
+.row
+  - @named_gradients.each do |named_gradient|
+    .col-md-6.col-sm-6
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title= named_gradient.name
+        .panel-body{ style: named_gradient.gradient.to_css + "height:100px;" }
+

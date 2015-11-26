@@ -1,6 +1,8 @@
 class GradientsController < ApplicationController
 
   def index
+    store = NamedGradientStore.new(riak: $riak, style: "default")
+    @named_gradients = store.list
   end
 
   def create
