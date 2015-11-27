@@ -2,11 +2,11 @@
   %h1 Gradient maps
 .row
   - @named_gradients.each do |named_gradient|
-    .col-md-6.col-sm-6
+    .col-md-12.col-sm-12
       .panel.panel-default
         .panel-heading
-          %h3.panel-title= named_gradient.name
-        .panel-body{ style: named_gradient.gradient.to_css + "height:100px;" }
+          %h3.panel-title= link_to named_gradient.name, gradient_path(named_gradient)
+        .panel-body{ style: named_gradient.gradient.to_css }
 
 .row
   .col-md-12
