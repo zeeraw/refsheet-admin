@@ -7,7 +7,9 @@ class GrdImportController < ApplicationController
   def create
     @grd_import_form = GRDImportForm.new(grd_import_params)
     if @grd_import_form.valid?
-      @gradients_form = GradientsForm.new(@grd_import_form.gradients_params)
+      @gradient_forms = @grd_import_form.gradients_params.map do |params|
+        GradientForm.new(params)
+      end
       return render "gradients/new"
     else
       return render "new"

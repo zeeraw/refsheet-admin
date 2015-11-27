@@ -7,19 +7,16 @@ class GradientForm
 
   attr_reader :id, :name, :points, :gradient, :save
 
+  validates :name, presence: true
+
   def initialize(attrs={})
-    @name, @points = attrs.values_at(*%w(name points))
+    @name, @points = attrs.values_at(*%i(name points))
+    @id = attrs.fetch(:id) { SecureRandom.uuid }
     @gradient = Gradient::Map.deserialize(JSON.parse(@points)) if @points
-    @id = SecureRandom.uuid
-    @save = attrs.fetch("save", "0") == "1"
   end
 
   def persisted?
     false
-  end
-
-  def save?
-    @save
   end
 
   def attributes

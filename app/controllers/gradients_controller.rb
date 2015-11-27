@@ -6,18 +6,18 @@ class GradientsController < ApplicationController
   end
 
   def create
-    @gradients_form = GradientsForm.new(gradients_params)
-    if @gradients_form.valid?
+    @gradient_form = GradientForm.new(gradient_params)
+    if @gradient_form.valid?
       store = NamedGradientStore.new(riak: $riak, style: "default")
-      StoreGradientsInForm.new(store, @gradients_form).call
-      redirect_to gradients_path
+      store.save(@gradient_form.attributes)
+      render head: true, status: 201
     else
-      render "new"
+      render partial: "components/gradient_form", layout: false, locals: { gradient_form: @gradient_form }, status: 422
     end
   end
 
-  private def gradients_params
-    params.require(:gradients_form).permit(gradient_forms: [:name, :points, :save]).require(:gradient_forms)
+  private def gradient_params
+    params.require(:gradient_form).permit(:name, :points)
   end
 
 end

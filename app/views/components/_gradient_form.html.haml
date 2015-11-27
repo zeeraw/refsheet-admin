@@ -1,0 +1,8 @@
+= simple_form_for gradient_form, url: gradients_path, remote: true do |f|
+  = f.input :points, as: :hidden
+  .col-md-6.col-sm-6
+    .panel.panel-default
+      .panel-body{ style: gradient_form.gradient.to_css + "height:100px;" }
+      .panel-footer
+        .form-group= f.input :name, label: false
+        .form-group.text-right= button_tag "Save gradient", class: "btn btn-primary", disable_with: "Saving..."
