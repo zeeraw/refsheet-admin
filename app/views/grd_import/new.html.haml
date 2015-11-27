@@ -1,5 +1,12 @@
-%h1 Import gradients from Adobe Photoshop
+.page-header
+  %h1 Import gradients from Adobe Photoshop
 = simple_form_for @grd_import_form, url: new_grd_import_path, multipart: true do |f|
-  = f.input :upload_id, as: :hidden
-  = f.input :file, as: :file
-  = f.submit "Upload file", class: "btn", disable_with: "Uploading file..."
+  .panel.panel-default
+    .panel-body
+      = f.input :upload_id, as: :hidden
+      = f.input :file, as: :file, label: "Please select a <code>.grd</code> file".html_safe
+    .panel-footer
+      .form-group
+        = button_tag class: "btn btn-primary", disable_with: "Uploading and importing file..." do
+          %span.glyphicon.glyphicon-cloud-upload
+          = "Upload and import file"
